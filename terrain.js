@@ -1,16 +1,59 @@
 const TerrainStep = function(){
-    if (this.keys['s']){
+    let dTap
+    this.mvx = this.cruiseControl ? this.cruiseMvx : 0
+    this.mvy = this.cruiseControl ? this.cruiseMvy : 0
+    if (this.keys['s'] && !this.sDown){// press
+        dTap = timestamp() - this.lastTap
         this.mvx = 0.1
-    } else if (this.keys['q']){
+        this.cruiseControl = false
+        this.sDown = true
+    } else if (this.keys['s'] && this.sDown){// hold
+        this.mvx = 0.1
+    } else if (!this.keys['s'] && this.sDown) {// release
+        this.sDown = false
+    } else if (this.keys['q'] && !this.qDown){
+        dTap = timestamp() - this.lastTap
         this.mvx = -0.1
-    } else 
-        this.mvx = 0
-    if (this.keys['w']){
+        this.cruiseControl = false
+        this.qDown = true
+    } else if (this.keys['q'] && this.qDown) {
+        this.mvx = -0.1
+    } else if (!this.keys['q'] && this.qDown) {
+        this.qDown = false
+    }
+        
+    if (this.keys['w'] && !this.wDown){
+        dTap = timestamp() - this.lastTap
         this.mvy = -0.1
-    } else if (this.keys['a']){
+        this.cruiseControl = false
+        this.wDown = true
+    } else if (this.keys['w'] && this.wDown){
+        this.mvy = -0.1
+    } else if (!this.keys['w'] && this.wDown){
+        this.wDown = false
+    } else if (this.keys['a'] && !this.aDown){
+        dTap = timestamp() - this.lastTap
         this.mvy = 0.1
-    } else
-        this.mvy = 0
+        this.cruiseControl = false
+        this.aDown = true        
+    } else if (this.keys['a'] && this.aDown){
+        this.mvy = 0.1
+    } else if (!this.keys['a'] && this.aDown){
+        this.aDown = false
+    }
+    
+    if (dTap){
+        console.log(dTap)
+        this.lastTap += dTap
+        if (dTap < 200){
+            this.cruiseControl = true
+            this.cruiseMvx = this.mvx
+            this.cruiseMvy = this.mvy
+        } else {
+            this.cruiseControl = false
+        }
+    }
+        
     this.mx += this.mvx
     this.my += this.mvy
 }
@@ -95,7 +138,7 @@ const TerrainDraw = function(){
                     drawLeft = false
             }
                 
-            let shades = getShades(250 - height*50/this.maxHeight)
+            let shades = getShades(250 - 50 * (height/this.maxHeight))
             drawBlock(this.game, x, y, height, shades, drawLeft, drawRight)
         }
     }  
@@ -113,6 +156,8 @@ const CreateTerrain = (game) => {
         my: 0,
         mvx: 0,
         mvy: 0,
+        lastTap: timestamp(),
+        cruiseControl: false,
     }
 
     return Object.assign(t, {

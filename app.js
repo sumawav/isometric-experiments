@@ -1,12 +1,14 @@
+const timestamp = () => {
+    return window.performance && 
+        window.performance.now ? 
+        window.performance.now() : 
+        new Date().getTime()
+}
+var g
 window.onload = function() {
     
     const game = CreateGame("canvas")
-    const timestamp = () => {
-        return window.performance && 
-            window.performance.now ? 
-            window.performance.now() : 
-            new Date().getTime()
-    }
+    g = game
 
     noise.seed(1);
     
