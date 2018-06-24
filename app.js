@@ -5,6 +5,21 @@ const timestamp = () => {
         new Date().getTime()
 }
 var g
+
+
+
+document.getElementById("info").addEventListener("click", (e) => {
+    e.preventDefault();
+    let detail = document.getElementById("info-detail")
+    let display = detail.style.display
+    if (display === "block"){
+        detail.style.display = "none"
+    } else {
+        detail.style.display = "block"
+    }
+    
+})
+
 window.onload = function() {
     
     const game = CreateGame("canvas")

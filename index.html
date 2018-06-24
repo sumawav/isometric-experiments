@@ -10,11 +10,52 @@
             margin: 0;
             padding: 0;
         }
+        #info {
+            position: fixed;
+            bottom: 2px;
+            right: 2px;
+            height: 20px;
+            width: 20px;
+            background-color: black;
+            color: white;
+            font-size: 18px;
+            border-radius: 20px;
+            font-family: helvetica;
+            text-align: center;
+            cursor: pointer;
+        }
+        #info-detail {
+            display: none;
+            position: absolute;
+            height: 100%;
+            width: 80%;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            background-color: rgba(0,0,0,0.6);
+            color: white;
+            padding: 5px;
+        }
+        #info-detail a {
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #info-detail .aqua {
+            color: aquamarine;
+        }
     </style>
 </head>
 <body>
     <canvas id="canvas"></canvas>
-
+    <div id="info-detail">
+        <h1>INFO</h1>
+        <h2>Hold <span class="aqua">QWAS</span> or tap and hold the screen to scroll</h2>
+        <h2><span class="aqua">Double tap</span> to autoscroll</h2>
+        <h2>Made by <a class="aqua" href="https://github.com/soumam">SOUMA</a></h2>
+    </div>
+    <div id="info">
+        ?
+    </div>
     <div class="button bottom"></div>
     <script src="game.js"></script>
     <script src="perlin.js"></script>

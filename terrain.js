@@ -43,7 +43,7 @@ const TerrainStep = function(){
     }
     
     if (dTap){
-        console.log(dTap)
+        // console.log(dTap)
         this.lastTap += dTap
         if (dTap < 200){
             this.cruiseControl = true
