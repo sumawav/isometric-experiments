@@ -13,6 +13,9 @@ window.onload = function() {
     noise.seed(1);
     
     const terrain = CreateTerrain(game)
+    terrain.cruiseControl = true
+    terrain.cruiseMvx = 0
+    terrain.cruiseMvy = -0.1
 
     const mainLoop = () => {
         let ctx = game.ctx

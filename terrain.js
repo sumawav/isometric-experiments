@@ -82,7 +82,10 @@ const drawBlock = function(game, x, y, z, shades, drawLeft, drawRight) {
     const left = shades.low
 
     ctx.save()
-    ctx.translate(game.maxX / 2, 200)
+
+    // TODO: this needs to be done better
+    ctx.translate(game.maxX / 2, game.maxY/3)
+
     ctx.translate((x - y) * game.tileWidth / 2, (x + y) * game.tileHeight / 2)         
 
     ctx.beginPath()

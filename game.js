@@ -3,10 +3,20 @@ const CreateGame = (canvasId) => {
           ctx = canvas.getContext('2d'),
           maxX = canvas.width = window.innerWidth,
           maxY = canvas.height = window.innerHeight,
-          tileWidth = Math.floor(0.8 * (maxX/10)),
-          tileHeight = Math.floor(tileWidth / 2),
+          orientation = maxX > maxY ? "landscape" : "portrait",
           keys = {}
-        
+
+    let tileWidth,
+        tileHeight
+
+    if (orientation === "portrait"){
+        tileWidth = Math.floor(0.95 * (maxX/10))
+        tileHeight = Math.floor(tileWidth / 2)
+    } else {
+        tileHeight = Math.floor(0.7 * (maxY/10))
+        tileWidth = Math.floor(tileHeight * 2)
+    }
+
     const KEY_CODES = {
         13:"enter",
         32:"space", 
