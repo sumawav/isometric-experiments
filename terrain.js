@@ -28,7 +28,8 @@ const getShades = (hue, sat, lightness) => {
     }
 }
 
-const drawBlock = (ctx, x, y, z, shades, drawLeft, drawRight) => {
+const drawBlock = function(game, x, y, z, shades, drawLeft, drawRight) {
+    const ctx = game.ctx
 
     shades = shades || getShades(0, 0)
     drawLeft = (drawLeft === undefined) ? true : drawLeft
@@ -38,24 +39,24 @@ const drawBlock = (ctx, x, y, z, shades, drawLeft, drawRight) => {
     const left = shades.low
 
     ctx.save()
-    ctx.translate(width / 2, 200)
-    ctx.translate((x - y) * tileWidth / 2, (x + y) * tileHeight / 2)         
+    ctx.translate(game.maxX / 2, 200)
+    ctx.translate((x - y) * game.tileWidth / 2, (x + y) * game.tileHeight / 2)         
 
     ctx.beginPath()
-    ctx.moveTo(0,-z * tileHeight)
-    ctx.lineTo(tileWidth / 2, tileHeight / 2 - z * tileHeight)
-    ctx.lineTo(0, tileHeight - z * tileHeight)
-    ctx.lineTo(-tileWidth / 2, tileHeight / 2 - z * tileHeight)
+    ctx.moveTo(0,-z * game.tileHeight)
+    ctx.lineTo(game.tileWidth / 2, game.tileHeight / 2 - z * game.tileHeight)
+    ctx.lineTo(0, game.tileHeight - z * game.tileHeight)
+    ctx.lineTo(-game.tileWidth / 2, game.tileHeight / 2 - z * game.tileHeight)
     ctx.closePath()
     ctx.fillStyle = top
     ctx.fill()
 
     if (drawLeft){
         ctx.beginPath()
-        ctx.moveTo(-tileWidth/2, tileHeight/2 - z*tileHeight)
-        ctx.lineTo(0, tileHeight - z*tileHeight)
-        ctx.lineTo(0, tileHeight)
-        ctx.lineTo(-tileWidth/2, tileHeight/2)
+        ctx.moveTo(-game.tileWidth/2, game.tileHeight/2 - z*game.tileHeight)
+        ctx.lineTo(0, game.tileHeight - z*game.tileHeight)
+        ctx.lineTo(0, game.tileHeight)
+        ctx.lineTo(-game.tileWidth/2, game.tileHeight/2)
         ctx.closePath()
         ctx.fillStyle = left
         ctx.fill()
@@ -63,10 +64,10 @@ const drawBlock = (ctx, x, y, z, shades, drawLeft, drawRight) => {
 
     if (drawRight){
         ctx.beginPath()
-        ctx.moveTo(tileWidth/2, tileHeight/2 - z*tileHeight)
-        ctx.lineTo(0, tileHeight - z*tileHeight)
-        ctx.lineTo(0, tileHeight)
-        ctx.lineTo(tileWidth/2, tileHeight/2)
+        ctx.moveTo(game.tileWidth/2, game.tileHeight/2 - z*game.tileHeight)
+        ctx.lineTo(0, game.tileHeight - z*game.tileHeight)
+        ctx.lineTo(0, game.tileHeight)
+        ctx.lineTo(game.tileWidth/2, game.tileHeight/2)
         ctx.closePath()
         ctx.fillStyle = right
         ctx.fill()
@@ -94,16 +95,18 @@ const TerrainDraw = function(){
                     drawLeft = false
             }
                 
-            let shades = getShades(250 - height*60/this.maxHeight)
-            drawBlock(this.ctx, x, y, height, shades, drawLeft, drawRight)
+            let shades = getShades(250 - height*50/this.maxHeight)
+            drawBlock(this.game, x, y, height, shades, drawLeft, drawRight)
         }
     }  
 }
 
-const CreateTerrain = (ctx, keys) => {
+const CreateTerrain = (game) => {
     const t = {
-        ctx: ctx,
-        keys, keys,
+        "_type": "Terrain",
+        game: game,
+        ctx: game.ctx,
+        keys: game.keys,
         maxHeight: 5,
         gridSize: 10,
         mx: 0,

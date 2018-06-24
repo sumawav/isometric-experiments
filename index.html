@@ -10,63 +10,13 @@
             margin: 0;
             padding: 0;
         }
-        .button {
-            height: 60px;
-            width: 60px;
-            position: fixed;
-            text-align: center;
-            font-family: "Helvetica";
-            font-size: 50px;
-            pointer-events: none
-        }
-        .button.top-right{
-            top: 10px;
-            right: 10px;
-        }
-        .button.bottom-right{
-            bottom: 10px;
-            right: 10px;
-        }
-        .button.top-left{
-            top: 10px;
-            left: 10px;
-        }
-        .button.bottom-left{
-            bottom: 10px;
-            left: 10px;
-        }
-        .button.bottom {
-            height: 20px;
-            width: 200px;
-            font-size: 20px;
-            bottom: 1px;
-            left: 40%;
-            pointer-events: fill;
-            cursor: pointer;
-            color: black;
-        }
-        .check {
-            width: 20px;
-            height: 20px;
-        }
     </style>
 </head>
 <body>
     <canvas id="canvas"></canvas>
-    <div class="button top-right">
-        <div class="check">↗</div>
-    </div>
-    <div class="button top-left">
-        <div class="check">↖</div>
-    </div>
-    <div class="button bottom-right">
-        <div class="check">↘</div>
-    </div>
-    <div class="button bottom-left">
-        <div class="check">↙</div>
-    </div>
-    <!-- <a class="button bottom" id="download" download="terrain.png">download</a> -->
-    <div class="button bottom">press QWAS</div>
+
+    <div class="button bottom"></div>
+    <script src="game.js"></script>
     <script src="perlin.js"></script>
     <script src="terrain.js"></script>
     <script src="app.js"></script>
